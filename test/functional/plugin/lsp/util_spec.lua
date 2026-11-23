@@ -219,7 +219,8 @@ describe('vim.lsp.util', function()
       local new = tmpname()
       write_file(new, 'New file')
       exec_lua(function()
-        vim.lsp.util.rename(old, new, { overwrite = true })
+        -- overwrite must win over ignoreIfExists
+        vim.lsp.util.rename(old, new, { overwrite = true, ignoreIfExists = true })
       end)
 
       eq(false, vim.uv.fs_stat(old) ~= nil)

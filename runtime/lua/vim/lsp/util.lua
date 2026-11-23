@@ -488,7 +488,8 @@ end
 --- @param opts? vim.lsp.util.rename.Opts Options:
 function M.rename(old_fname, new_fname, opts)
   opts = opts or {}
-  local skip = not opts.overwrite or opts.ignoreIfExists
+  -- from spec: Overwrite wins over `ignoreIfExists`
+  local skip = not opts.overwrite
 
   local old_fname_full = uv.fs_realpath(vim.fs.normalize(old_fname, { plain = true }))
   if not old_fname_full then
