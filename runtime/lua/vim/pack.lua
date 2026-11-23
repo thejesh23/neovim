@@ -478,7 +478,7 @@ local function normalize_spec(spec)
   spec = (type(spec) == 'string' and { src = spec } or spec) --[[@as vim.pack.Spec]]
   vim.validate('spec', spec, 'table')
   vim.validate('spec.src', spec.src, is_nonempty_string, false, 'non-empty string')
-  local name = spec.name or spec.src:gsub('%.git$', '')
+  local name = spec.name or spec.src:gsub('/+$', ''):gsub('%.git$', '')
   name = (type(name) == 'string' and name or ''):match('[^/]+$') or ''
   vim.validate('spec.name', name, is_nonempty_string, true, 'non-empty string')
   vim.validate('spec.version', spec.version, is_version, true, 'string or vim.VersionRange')

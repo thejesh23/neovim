@@ -1200,7 +1200,8 @@ describe('vim.pack', function()
       vim_pack_add({
         repos_src.basic, -- String should be inferred as `{ src = ... }`
         { src = repos_src.defbranch }, -- Default `version` is remote's default branch
-        { src = repos_src['gitsuffix.git'] }, -- Default `name` comes from `src` repo name
+        -- Default `name` comes from `src` repo name, ignoring trailing slash
+        { src = repos_src['gitsuffix.git'] .. '/' },
         { src = repos_src.plugindirs, name = 'plugin/dirs' }, -- Ensure proper directory name
       })
 
